@@ -1,6 +1,9 @@
 # Rune Factory 5 - Chop/Smash full stack
 Rune Factory 5 BepInEx (>647) plugin to easily chop a stack of branches or smash a stack of rocks.
 
+![demogif](https://raw.githubusercontent.com/davidthemaster30/RF5StackChopSmash/c0462c92a52b6a1e19dd3e8d996181c32fc22c1c/Media/output.gif?raw=true)
+
+
 ## Installation
 
 1. Install [BepInEx BE v647 or later](https://builds.bepinex.dev/projects/bepinex_be) (IL2CPP_x64)
