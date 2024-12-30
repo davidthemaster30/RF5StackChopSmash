@@ -3,25 +3,67 @@ using HarmonyLib;
 namespace RF5StackChopSmash;
 
 [HarmonyPatch]
-internal static class RF5StackChopSmashBehaviour
+public static class RF5StackChopSmashBehaviour
 {
-    [HarmonyPatch(typeof(OnGroundItem), nameof(OnGroundItem.DoSmash))]
+    private static bool LastHit { get; set; } = false;
+
+    [HarmonyPatch(typeof(OnGroundItem), nameof(OnGroundItem.DoBreak))]
     [HarmonyPostfix]
-    internal static void SmashRocks(HumanController humanController, OnGroundItem __instance)
+    public static void BreakRocks(HumanController? humanController, OnGroundItem __instance)
     {
-        if (__instance?.ItemData?.Amount > 0)
+        try
         {
-            __instance.DoSmash(humanController);
+            if (__instance is null || __instance.ItemData is null)
+            {
+                return;
+            }
+
+            if (__instance.ItemData.Amount == 1 && !LastHit)
+            {
+                LastHit = true;
+                __instance.DoBreak(humanController);
+            }
+
+            if (__instance.ItemData.Amount > 1)
+            {
+                __instance.DoBreak(humanController);
+            }
+
+            LastHit = false;
+        }
+        catch (Exception error)
+        {
+            RF5StackChopSmashPlugin.Log.LogError($"{error}");
         }
     }
 
     [HarmonyPatch(typeof(OnGroundItem), nameof(OnGroundItem.DoChop))]
     [HarmonyPostfix]
-    internal static void ChopBranches(HumanController humanController, OnGroundItem __instance)
+    public static void ChopBranches(HumanController? humanController, OnGroundItem __instance)
     {
-        if (__instance?.ItemData?.Amount > 0)
+        try
         {
-            __instance.DoChop(humanController);
+            if (__instance is null || __instance.ItemData is null)
+            {
+                return;
+            }
+
+            if (__instance.ItemData.Amount == 1 && !LastHit)
+            {
+                LastHit = true;
+                __instance.DoChop(humanController);
+            }
+
+            if (__instance.ItemData.Amount > 1)
+            {
+                __instance.DoChop(humanController);
+            }
+
+            LastHit = false;
+        }
+        catch (Exception error)
+        {
+            RF5StackChopSmashPlugin.Log.LogError($"{error}");
         }
     }
 }

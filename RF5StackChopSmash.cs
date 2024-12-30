@@ -1,7 +1,7 @@
 ﻿using BepInEx;
-using HarmonyLib;
-using BepInEx.Unity.IL2CPP;
 using BepInEx.Logging;
+using BepInEx.Unity.IL2CPP;
+using HarmonyLib;
 
 namespace RF5StackChopSmash;
 
@@ -9,9 +9,8 @@ namespace RF5StackChopSmash;
 [BepInProcess(GameProcessName)]
 public class RF5StackChopSmashPlugin : BasePlugin
 {
-    private const string GameProcessName = "Rune Factory 5.exe";
-
     internal static new readonly ManualLogSource Log = BepInEx.Logging.Logger.CreateLogSource("RF5StackChopSmashBehaviour");
+    private const string GameProcessName = "Rune Factory 5.exe";
 
     public override void Load()
     {
